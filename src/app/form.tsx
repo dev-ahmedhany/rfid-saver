@@ -17,16 +17,19 @@ export default function Form() {
         try {
           const db = getFirestore();
           const q = query(collection(db, "checkinandout"), where("wristband_id", "==", wristband_id),
-           orderBy("checkintime", "desc"), limit(1));
+           orderBy("time", "desc"), limit(1));
 
           const querySnapshot = await getDocs(q);
           if(querySnapshot.docs.length > 0){
             const last = querySnapshot.docs[0]
-            const checkouttime = last.data().checkouttime
-            if(!checkouttime){
-              await updateDoc(last.ref, {
-                checkouttime: serverTimestamp(),
-                isIn : false
+            const isIn = last.data().isIn
+            if(isIn){
+              await addDoc(collection(db, "checkinandout"), {
+                wristband_id,
+                place,
+                time: serverTimestamp(),
+                isIn : false,
+                status: 'check out'
               });
               return
             }
@@ -34,8 +37,9 @@ export default function Form() {
           await addDoc(collection(db, "checkinandout"), {
             wristband_id,
             place,
-            checkintime: serverTimestamp(),
-            isIn : true
+            time: serverTimestamp(),
+            isIn : true,
+            status: 'check in'
           });
         } catch (e) {
           console.error("Error adding document: ", e);
