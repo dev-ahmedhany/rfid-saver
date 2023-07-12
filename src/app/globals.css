@@ -105,3 +105,28 @@ a {
     color-scheme: dark;
   }
 }
+
+
+.rfid-input {
+  /* Size */
+  width: 200px;
+  height: 30px;
+  
+  /* Padding */
+  padding: 5px;
+  
+  /* Border */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  
+  /* Font */
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  
+  /* Text color */
+  color: #333;
+  
+  /* Background color */
+  background-color: #fff;
+
+}
