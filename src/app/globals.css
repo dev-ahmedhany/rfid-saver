@@ -106,8 +106,7 @@ a {
   }
 }
 
-
-.rfid-input {
+input {
   /* Size */
   width: 200px;
   height: 30px;
@@ -128,5 +127,85 @@ a {
   
   /* Background color */
   background-color: #fff;
+  
+  /* Placeholder color */
+  ::placeholder {
+    color: #999;
+  }
+  
+  /* Focus state */
+  :focus {
+    outline: none;
+    border-color: #66afe9;
+    box-shadow: 0 0 5px #66afe9;
+  }
+  
+  /* Disabled state */
+  :disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
 
+
+
+select {
+  /* Size */
+  width: 200px;
+  height: 30px;
+  
+  /* Padding and border */
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  
+  /* Font */
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  
+  /* Text color */
+  color: #333;
+  
+  /* Background color */
+  background-color: #fff;
+  
+  /* Dropdown arrow color */
+  /* background-image: url("path/to/arrow.png"); */
+  background-repeat: no-repeat;
+  background-position: right center;
+  padding-right: 20px;
+  
+  /* Disabled state */
+  :disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+/* Hide the default checkbox */
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  
+  /* Size */
+  width: 16px;
+  height: 16px;
+  
+  /* Border */
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  
+  /* Checkbox check mark color */
+  background-color: #fff;
+}
+  
+/* Custom checkbox style */
+input[type="checkbox"]:checked {
+  background-color: #3366ff; /* Color when the checkbox is checked */
+}
+
+/* Custom checkbox style when hovering */
+input[type="checkbox"]:hover {
+  border-color: #3366ff;
 }
