@@ -181,31 +181,3 @@ select {
     cursor: not-allowed;
   }
 }
-
-/* Hide the default checkbox */
-input[type="checkbox"] {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  
-  /* Size */
-  width: 16px;
-  height: 16px;
-  
-  /* Border */
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  
-  /* Checkbox check mark color */
-  background-color: #fff;
-}
-  
-/* Custom checkbox style */
-input[type="checkbox"]:checked {
-  background-color: #3366ff; /* Color when the checkbox is checked */
-}
-
-/* Custom checkbox style when hovering */
-input[type="checkbox"]:hover {
-  border-color: #3366ff;
-}
