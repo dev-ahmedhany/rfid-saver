@@ -12,7 +12,7 @@ export default function Form() {
         if(!input.value) return
         const wristband_id = input.value
         const place = (form.elements[1] as HTMLSelectElement).value
-        const isIn = (form.elements[2] as HTMLInputElement).checked
+        const isIn = (form.elements[2] as HTMLInputElement).value === 'true'
         input.value = ''
         //send to firestore
         const db = getFirestore();
@@ -41,8 +41,10 @@ export default function Form() {
       <br />
       <br />
       <br />
-      <input type='checkbox' name='isIn' value='true' defaultChecked />
-      <label htmlFor='isIn'>In</label>
+      <select className="isIn-input" name="isIn">
+        <option value="true">In</option>
+        <option value="false">Out</option>
+      </select>
       </form>
   )
 }
