@@ -1,6 +1,6 @@
 'use client'
 import './firebase'
-import { getFirestore, collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { getFirestore, collection, addDoc, serverTimestamp, query, where, getDocs, orderBy, limit, updateDoc } from "firebase/firestore";
 
 export default function Form() {
   return (
@@ -12,18 +12,29 @@ export default function Form() {
         if(!input.value) return
         const wristband_id = input.value
         const place = (form.elements[1] as HTMLSelectElement).value
-        const isIn = (form.elements[2] as HTMLInputElement).value === 'true'
         input.value = ''
         //send to firestore
-        const db = getFirestore();
         try {
-          const docRef = await addDoc(collection(db, "checkinandout"), {
+          const db = getFirestore();
+          const q = query(collection(db, "checkinandout"), where("wristband_id", "==", wristband_id),
+           orderBy("checkintime", "desc"), limit(1));
+
+          const querySnapshot = await getDocs(q);
+          if(querySnapshot.docs.length > 0){
+            const last = querySnapshot.docs[0]
+            const checkouttime = last.data().checkouttime
+            if(!checkouttime){
+              await updateDoc(last.ref, {
+                checkouttime: serverTimestamp()
+              });
+              return
+            }
+          }
+          await addDoc(collection(db, "checkinandout"), {
             wristband_id,
             place,
-            isIn,
-            timestamp: serverTimestamp()
+            checkintime: serverTimestamp()
           });
-          console.log("Document written with ID: ", docRef.id);
         } catch (e) {
           console.error("Error adding document: ", e);
         }
@@ -36,14 +47,6 @@ export default function Form() {
       <select className="place-input" name="place">
         <option value="class">Class</option>
         <option value="bus">Bus</option>
-      </select>
-      <br />
-      <br />
-      <br />
-      <br />
-      <select className="isIn-input" name="isIn">
-        <option value="true">In</option>
-        <option value="false">Out</option>
       </select>
       </form>
   )
