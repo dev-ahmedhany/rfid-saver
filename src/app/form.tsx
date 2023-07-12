@@ -25,7 +25,8 @@ export default function Form() {
             const checkouttime = last.data().checkouttime
             if(!checkouttime){
               await updateDoc(last.ref, {
-                checkouttime: serverTimestamp()
+                checkouttime: serverTimestamp(),
+                isIn : false
               });
               return
             }
@@ -33,7 +34,8 @@ export default function Form() {
           await addDoc(collection(db, "checkinandout"), {
             wristband_id,
             place,
-            checkintime: serverTimestamp()
+            checkintime: serverTimestamp(),
+            isIn : true
           });
         } catch (e) {
           console.error("Error adding document: ", e);
